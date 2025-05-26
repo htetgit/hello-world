@@ -1,0 +1,17 @@
+format_version: 10
+pipelines:
+  HelloWorldPython:
+    group: HelloWorldGroup
+    label_template: "${COUNT}"
+    materials:
+      hello-python:
+        git: https://github.com/YOUR_USERNAME/Hello-World.git
+    stages:
+      - Build:
+          jobs:
+            RunPythonHello:
+              tasks:
+                - exec:
+                    command: python
+                    arguments:
+                      - hello.py
