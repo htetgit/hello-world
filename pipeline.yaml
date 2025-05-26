@@ -1,7 +1,7 @@
 format_version: 10
 
 pipelines:
-  HelloWorld:
+  HelloWorldPipeline:
     group: Test
     label_template: "${COUNT}"
     materials:
@@ -9,10 +9,41 @@ pipelines:
         url: https://github.com/htetgit/hello-world.git
         branch: master
         username: htetgit
-        password: "{{GITHUB_PAT}}"   # Secure reference
+        password: "{{GITHUB_PAT}}"   # Secure reference to GitHub Personal Access Token
     stages:
       - Build:
           jobs:
             BuildJob:
               tasks:
-                - script: echo "Hello World from GoCD"
+                # Build Go app
+                - exec:
+                    command: go
+                    arguments:
+                      - build
+                      - -o
+                      - main
+                      - main.go
+                # Run Go tests
+                - exec:
+                    command: go
+                    arguments:
+                      - test
+                      - ./...
+      - Test:
+          jobs:
+            TestJob:
+              tasks:
+                # Run Python test script
+                - exec:
+                    command: python3
+                    arguments:
+                      - python.py
+      - Deploy:
+          jobs:
+            DeployJob:
+              tasks:
+                # Simulated deploy step
+                - exec:
+                    command: echo
+                    arguments:
+                      - "Deploying application..."
