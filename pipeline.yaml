@@ -1,17 +1,17 @@
 format_version: 10
 pipelines:
-  HelloWorldPython:
-    group: HelloWorldGroup
+  HelloWorld:
+    group: Test
     label_template: "${COUNT}"
     materials:
-      hello-python:
-        git: https://github.com/htetgit/hello-world.git
+      git:
+        url: https://github.com/htetgit/hello-world.git
+        branch: master
+        username: htetgit
+        password: ${GITHUB_TOKEN}
     stages:
       - Build:
           jobs:
-            RunPythonHello:
+            BuildJob:
               tasks:
-                - exec:
-                    command: python
-                    arguments:
-                      - hello.py
+                - script: echo "Hello World from GoCD"
