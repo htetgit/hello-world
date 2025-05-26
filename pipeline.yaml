@@ -1,4 +1,5 @@
 format_version: 10
+
 pipelines:
   HelloWorld:
     group: Test
@@ -8,7 +9,7 @@ pipelines:
         url: https://github.com/htetgit/hello-world.git
         branch: master
         username: htetgit
-        password: ${GITHUB_TOKEN}
+        password: "{{GITHUB_PAT}}"   # Secure reference
     stages:
       - Build:
           jobs:
